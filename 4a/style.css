@@ -1,0 +1,20 @@
+[data-role="header"]{
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    text-decoration: none;
+}
+[role="main"]{
+    padding: 20px;
+}
+[data-role="list-view"]{
+    margin-top: 20px;
+}
+[data-role="footer"]{
+    background-color: #333;
+    color: #fff;
+    font-size: larger;
+    text-align: center;
+    padding: 20px;
+}

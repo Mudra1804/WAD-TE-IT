@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+<body>
+    <h2>User Registration</h2>
+    <form id="registrationForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br><br>
+        <button type="button" onclick="registerUser()">Register</button>
+    </form>
+
+    <h2>Registered Users</h2>
+    <ul id="userList"></ul>
+
+    <script>
+        let userList = []; // Array to hold registered users
+
+        function registerUser() {
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+
+            const newUser = {
+                username: username,
+                email: email
+            };
+
+            // Simulate sending data to server using AJAX POST
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'https://jsonplaceholder.typicode.com/posts', true); // Simulated endpoint (JSONPlaceholder)
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    console.log('User registration successful:', xhr.responseText);
+                    userList.push(newUser); // Add user to local array (simulated)
+                    displayUsers(); // Update displayed users
+                } else {
+                    console.error('Failed to register user:', xhr.statusText);
+                }
+            };
+            xhr.onerror = function() {
+                console.error('Network error occurred');
+            };
+            xhr.send(JSON.stringify(newUser));
+        }
+
+        function displayUsers() {
+            const userListElement = document.getElementById('userList');
+            userListElement.innerHTML = ''; // Clear previous list
+
+            userList.forEach(user => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Username: ${user.username}, Email: ${user.email}`;
+                userListElement.appendChild(listItem);
+            });
+        }
+    </script>
+</body>
+</html>
